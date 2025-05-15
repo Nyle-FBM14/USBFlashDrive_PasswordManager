@@ -1,0 +1,24 @@
+/* cannot use variables for javafx */
+
+.parent-container {
+    -fx-background-color: #426bb3;
+
+    background-color: #426bb3;
+}
+
+.textfield {
+    -fx-background-radius: 20px;
+
+    border-radius: 20px;
+}
+
+.button {
+    -fx-background-radius : 20px;
+    -fx-border-color: white;
+    -fx-border-radius: 20px;
+    -fx-background-color: #426bb3;
+
+    border-color: white;
+    border-radius: 20px;
+    background-color: #426bb3;
+}
