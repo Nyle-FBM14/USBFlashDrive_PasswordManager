@@ -2,6 +2,7 @@ module com.fortpass {
     requires javafx.controls;
     requires javafx.fxml;
     requires transitive javafx.graphics;
+    requires java.xml;
 
     opens com.fortpass to javafx.fxml;
     exports com.fortpass;

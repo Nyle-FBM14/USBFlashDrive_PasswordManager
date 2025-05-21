@@ -4,6 +4,10 @@ import java.util.Arrays;
 
 import javax.crypto.SecretKey;
 
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 public class Credential {
     private byte[] service;
     private byte[] username; //username or email used to sign in
@@ -24,6 +28,26 @@ public class Credential {
         this.username = username;
         this.password = password;
         this.emailLinked = emailLinked;
+    }
+    public Credential(Node credentialRootXMLElement) {
+        NodeList instanceVariables = credentialRootXMLElement.getChildNodes();
+        for(int i = 0; i < instanceVariables.getLength(); i++) {
+            Element instanceVariable = (Element) instanceVariables.item(i);
+            switch(instanceVariable.getTagName()) {
+                case "service":
+                    this.service = Cryptography.decode(instanceVariable.getTextContent());
+                    break;
+                case "username":
+                    this.username = Cryptography.decode(instanceVariable.getTextContent());
+                    break;
+                case "password":
+                    this.password = Cryptography.decode(instanceVariable.getTextContent());
+                    break;
+                case "emailLinked":
+                    this.emailLinked = Cryptography.decode(instanceVariable.getTextContent());
+                    break;
+            }
+        }
     }
 
     public byte[] getService(SecretKey key) {
@@ -51,16 +75,19 @@ public class Credential {
         this.emailLinked = Cryptography.encrypt(emailLinked, key, "AES");
     }
     
+    private String toXMLElement(String tag, byte[] content) {
+        return String.format("<%s>%s</%s>", tag, Cryptography.encode(content), tag);
+    }
     public String getXML() {
         StringBuilder xml = new StringBuilder("<Credential>");
         if(service != null)
-            xml.append(Cryptography.toXMLElement("service", service));
+            xml.append(toXMLElement("service", service));
         if(username != null)
-            xml.append(Cryptography.toXMLElement("username", username));
+            xml.append(toXMLElement("username", username));
         if(password != null)
-            xml.append(Cryptography.toXMLElement("password", password));
+            xml.append(toXMLElement("password", password));
         if(emailLinked != null)
-            xml.append(Cryptography.toXMLElement("emailLinked", emailLinked));
+            xml.append(toXMLElement("emailLinked", emailLinked));
         xml.append("</Credential>");
         return xml.toString();
     }

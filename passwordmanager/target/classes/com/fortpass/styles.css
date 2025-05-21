@@ -22,3 +22,16 @@
     border-radius: 20px;
     background-color: #426bb3;
 }
+
+.mainPageTiles {
+    -fx-background-radius : 20px;
+    -fx-border-color: white;
+    -fx-border-radius: 20px;
+    -fx-background-color: #426bb3;
+    -fx-border-width: 3px;
+
+    border-color: white;
+    border-radius: 20px;
+    background-color: #426bb3;
+    border-width: 3px;
+}
