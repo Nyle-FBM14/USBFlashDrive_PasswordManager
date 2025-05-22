@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#enterKey" prefHeight="400.0" prefWidth="700.0" spacing="10.0" styleClass="parent-container" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fortpass.controllers.LoginController">
    <children>
       <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="200.0">
@@ -29,13 +28,32 @@
             </Label>
          </children>
       </HBox>
-      <TextField fx:id="textfieldUsername" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Username" styleClass="textfield" stylesheets="@../styles.css" />
-      <PasswordField fx:id="textfieldPassword" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Password" styleClass="textfield" stylesheets="@../styles.css" />
-      <Button mnemonicParsing="false" onAction="#login" text="Login" textFill="WHITE">
-         <font>
-            <Font name="Impact" size="14.0" />
-         </font>
-      </Button>
+      <TextField fx:id="tfUsername" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Username" styleClass="textfield" stylesheets="@../styles.css" />
+      <PasswordField fx:id="pfPassword" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Password" styleClass="textfield" stylesheets="@../styles.css" />
+      <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="30.0" prefWidth="250.0" spacing="5.0">
+         <children>
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#createAccount" prefWidth="100.0" text="New Account" textFill="WHITE">
+               <font>
+                  <Font name="Impact" size="14.0" />
+               </font>
+            </Button>
+            <Label text="|" textFill="WHITE">
+               <font>
+                  <Font name="Impact" size="20.0" />
+               </font>
+            </Label>
+            <Button layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#loginClick" prefWidth="100.0" text="Login" textFill="WHITE">
+               <font>
+                  <Font name="Impact" size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <Label fx:id="labelError" alignment="CENTER" prefHeight="20.0" styleClass="errorPopupLabels" stylesheets="@../styles.css" text=":3" textAlignment="CENTER" textFill="WHITE" visible="false">
+         <padding>
+            <Insets left="5.0" right="5.0" />
+         </padding>
+      </Label>
    </children>
    <padding>
       <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />

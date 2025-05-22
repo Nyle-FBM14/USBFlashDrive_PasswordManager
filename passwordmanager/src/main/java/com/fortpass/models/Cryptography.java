@@ -61,6 +61,18 @@ public class Cryptography {
         return Base64.getDecoder().decode(string);
     }
 
+    /*
+    public static String getHashString(String s) {
+        try {
+            MessageDigest function = MessageDigest.getInstance("SHA-256");
+            byte[] hash = function.digest(s.getBytes(StandardCharsets.UTF_8));
+            return encode(hash);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }*/
+
     //CRYPTOGRAPHY
     public static byte[] encrypt(Object message, Key key, String instance) {
         try{
@@ -146,25 +158,5 @@ public class Cryptography {
             e.printStackTrace();
         }
         return null;
-    }
-
-    public static String getUserDir(String username) {
-        StringBuilder hashString = new StringBuilder();
-        try {
-            MessageDigest function = MessageDigest.getInstance("SHA-256");
-            byte[] hash = function.digest(username.getBytes(StandardCharsets.UTF_8));
-
-            int i = 0;
-            for(byte b : hash) {
-                if(i > 15) //only taking the first 16 hexadecimal characters
-                    break;
-                hashString.append(String.format("%02X", b));
-                i++;
-            }
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-
-        return hashString.toString();        
     }
 }

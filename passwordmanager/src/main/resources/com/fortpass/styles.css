@@ -35,3 +35,9 @@
     background-color: #426bb3;
     border-width: 3px;
 }
+
+.errorPopupLabels {
+    -fx-background-color: red;
+
+    background-color: red;
+}
