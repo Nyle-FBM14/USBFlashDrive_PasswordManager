@@ -41,3 +41,35 @@
 
     background-color: red;
 }
+
+#scrollPaneMainPage {
+    -fx-background: transparent;
+    -fx-background-color: #426bb3;
+
+    background: transparent;
+    background-color: #426bb3;
+}
+
+#serviceTextfield {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+    -fx-text-fill: white;
+
+    background-color: transparent;
+    border-color: transparent;
+    padding: 0;
+}
+
+#credentialCard {
+    -fx-background-color: #426bb3;
+    -fx-background-radius : 20px;
+    -fx-border-color: white;
+    -fx-border-radius: 20px;
+
+    background-color: #426bb3;
+    border-color: white;
+    border-radius: 20px;
+}

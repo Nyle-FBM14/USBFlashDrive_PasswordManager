@@ -10,7 +10,6 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
@@ -22,6 +21,7 @@ import javax.crypto.CipherOutputStream;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.spec.SecretKeySpec;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -150,8 +150,8 @@ public class Cryptography {
     public static SecretKey generateKey(String username, String password) {
         PBEKeySpec spec = new PBEKeySpec((username + password).toCharArray(), "AveChristusRex".getBytes(StandardCharsets.UTF_8), 10000, 256);
         try {
-            SecretKeyFactory factory = SecretKeyFactory.getInstance("AES"); //AES/ECB/PKCS5Padding = AES
-            return factory.generateSecret(spec);
+            SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256"); //AES/ECB/PKCS5Padding = AES
+            return new SecretKeySpec(factory.generateSecret(spec).getEncoded(), "AES");
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } catch (InvalidKeySpecException e) {

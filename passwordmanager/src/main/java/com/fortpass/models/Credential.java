@@ -50,28 +50,28 @@ public class Credential {
         }
     }
 
-    public byte[] getService(SecretKey key) {
-        return (byte[]) Cryptography.decrypt(service, key, "AES");
+    public String getService(SecretKey key) {
+        return (String) Cryptography.decrypt(service, key, "AES");
     }
-    public void setService(byte[] service, SecretKey key) {
+    public void setService(String service, SecretKey key) {
         this.service = Cryptography.encrypt(service, key, "AES");
     }
-    public byte[] getUsername(SecretKey key) {
-        return (byte[]) Cryptography.decrypt(username, key, "AES");
+    public String getUsername(SecretKey key) {
+        return (String) Cryptography.decrypt(username, key, "AES");
     }
-    public void setUsername(byte[] username, SecretKey key) {
+    public void setUsername(String username, SecretKey key) {
         this.username = Cryptography.encrypt(username, key, "AES");
     }
-    public byte[] getPassword(SecretKey key) {
-        return (byte[]) Cryptography.decrypt(password, key, "AES");
+    public String getPassword(SecretKey key) {
+        return (String) Cryptography.decrypt(password, key, "AES");
     }
-    public void setPassword(byte[] password, SecretKey key) {
+    public void setPassword(String password, SecretKey key) {
         this.password = Cryptography.encrypt(password, key, "AES");
     }
-    public byte[] getEmailLinked(SecretKey key) {
-        return (byte[]) Cryptography.decrypt(emailLinked, key, "AES");
+    public String getEmailLinked(SecretKey key) {
+        return (String) Cryptography.decrypt(emailLinked, key, "AES");
     }
-    public void setEmailLinked(byte[] emailLinked, SecretKey key) {
+    public void setEmailLinked(String emailLinked, SecretKey key) {
         this.emailLinked = Cryptography.encrypt(emailLinked, key, "AES");
     }
     

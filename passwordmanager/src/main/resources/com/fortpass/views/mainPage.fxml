@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="CENTER" hgap="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" styleClass="parent-container" stylesheets="@../styles.css" vgap="5.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21">
+<GridPane alignment="CENTER" hgap="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" styleClass="parent-container" stylesheets="@../styles.css" vgap="5.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fortpass.controllers.MainPageController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="250.0" prefWidth="280.0" />
       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="100.0" prefWidth="100.0" />
@@ -44,14 +44,17 @@
             </Label>
          </children>
       </HBox>
-      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="mainPageTiles" stylesheets="@../styles.css" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
+      <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="265.0" prefWidth="385.0" styleClass="mainPageTiles" stylesheets="@../styles.css" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
          <children>
-            <Label text="Password Manager" textFill="WHITE">
+            <Label prefHeight="25.0" text="Password Manager" textFill="WHITE">
                <font>
                   <Font name="Impact" size="20.0" />
                </font>
             </Label>
-            <ScrollPane prefHeight="234.0" prefWidth="350.0" />
+            <ScrollPane id="scrollPaneMainPage" fitToWidth="true" minHeight="220.0" minWidth="-Infinity" prefWidth="365.0" stylesheets="@../styles.css">
+               <content>
+                  <VBox fx:id="vboxMain" fillWidth="false" minHeight="215.0" minWidth="-Infinity" prefWidth="350.0" />
+               </content></ScrollPane>
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

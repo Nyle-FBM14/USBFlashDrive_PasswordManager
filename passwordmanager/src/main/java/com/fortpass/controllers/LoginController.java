@@ -65,8 +65,9 @@ public class LoginController {
 
     @FXML
     void enterKey(KeyEvent event) {
-        if(event.getCode() == KeyCode.ENTER)
-            login();
+        //if(event.getCode() == KeyCode.ENTER)
+        //    login();
+        App.setRoot("mainPage");
     }
 
     @FXML
