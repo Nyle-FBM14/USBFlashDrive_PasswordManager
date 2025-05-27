@@ -1,4 +1,4 @@
-package com.fortpass.models;
+package com.passfort.models;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -10,6 +10,7 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
@@ -155,6 +156,51 @@ public class Cryptography {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } catch (InvalidKeySpecException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String customHash(String plaintext, byte hashLength) {
+        final char[] UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+        final char[] LOWERCASE = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+        final char[] NUMBER = "0123456789".toCharArray();
+        final char[] SYMBOLS = "!@#$%^&*()-_=+[]{}<>,.?;:'\"\\/|~`".toCharArray();  //32 chars
+        final char[] REGEX_ALL = "^[a-zA-Z0-9!@#$%^&*()_\\-=+\\[\\]{}<>,.?;:'\"\\\\/|~]+$".toCharArray();
+
+        StringBuilder hashString = new StringBuilder();
+        byte indices = (byte) (hashLength/4); //the places to put a uppercase, lowercase, number, and symbol
+        try {
+            MessageDigest function = MessageDigest.getInstance("SHA-256");
+            byte[] hash = function.digest(plaintext.getBytes(StandardCharsets.UTF_8));
+            byte increment = 0;
+            for(int i = 0; i < hashLength; i++) {
+
+                //Makes sure that a password has at least uppercase letter, lowercase letter, number, and symbol
+                if((i % indices) == 0) {
+                    switch (increment) {
+                        case 0:
+                            hashString.append(UPPERCASE[(hash[i] % UPPERCASE.length)]);
+                            break;
+                        case 1:
+                            hashString.append(LOWERCASE[(hash[i] % LOWERCASE.length)]);
+                            break;
+                        case 2:
+                            hashString.append(NUMBER[(hash[i] % NUMBER.length)]);
+                            break;
+                        case 3:
+                            hashString.append(SYMBOLS[(hash[i] % SYMBOLS.length)]);
+                            break;
+                        default:
+                            break;
+                    }
+                    increment++;
+                    continue;
+                }
+                hashString.append(REGEX_ALL[(hash[i] % REGEX_ALL.length)]);
+            }
+            return hashString.toString();
+        } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
         return null;

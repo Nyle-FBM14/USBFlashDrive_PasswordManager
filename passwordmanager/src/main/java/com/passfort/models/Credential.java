@@ -1,4 +1,4 @@
-package com.fortpass.models;
+package com.passfort.models;
 
 import java.util.Arrays;
 

@@ -1,4 +1,4 @@
-package com.fortpass.controllers;
+package com.passfort.controllers;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -6,8 +6,8 @@ import java.util.ResourceBundle;
 
 import javax.crypto.SecretKey;
 
-import com.fortpass.models.Credential;
-import com.fortpass.models.Cryptography;
+import com.passfort.models.Credential;
+import com.passfort.models.Cryptography;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -66,7 +66,7 @@ public class MainPageController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         fillCreds();
         for(Credential c : credentials) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/fortpass/views/credentialCard.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/passfort/views/credentialCard.fxml"));
             try {
                 VBox vbox = fxmlLoader.load();
                 CredentialCardController credentialCardController = fxmlLoader.getController();

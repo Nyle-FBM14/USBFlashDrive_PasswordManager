@@ -1,7 +1,7 @@
-package com.fortpass.controllers;
+package com.passfort.controllers;
 
-import com.fortpass.App;
-import com.fortpass.models.PasswordManager;
+import com.passfort.App;
+import com.passfort.models.PasswordManager;
 
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;

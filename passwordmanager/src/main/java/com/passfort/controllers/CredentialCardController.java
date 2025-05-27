@@ -1,9 +1,9 @@
-package com.fortpass.controllers;
+package com.passfort.controllers;
 
 import javax.crypto.SecretKey;
 
-import com.fortpass.models.Credential;
-import com.fortpass.models.Cryptography;
+import com.passfort.models.Credential;
+import com.passfort.models.Cryptography;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
