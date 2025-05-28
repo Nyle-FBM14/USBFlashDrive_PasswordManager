@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="CENTER" hgap="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" styleClass="parent-container" stylesheets="@../styles.css" vgap="5.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fortpass.controllers.MainPageController">
+<GridPane alignment="CENTER" hgap="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" styleClass="parent-container" stylesheets="@../styles.css" vgap="5.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.passfort.controllers.MainPageController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="250.0" prefWidth="280.0" />
       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="100.0" prefWidth="100.0" />
@@ -94,7 +94,7 @@
          </font>
       </Label>
       <TextField fx:id="hashInput" promptText="Input Text" GridPane.rowIndex="4" />
-      <TextField fx:id="hashOutput" promptText="Hash" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+      <TextField fx:id="hashOutput" editable="false" promptText="Hash" GridPane.columnIndex="2" GridPane.rowIndex="4" />
       <Button mnemonicParsing="false" onAction="#computeHash" stylesheets="@../styles.css" text="-&gt;" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4" />
       <Slider fx:id="hashLength" blockIncrement="4.0" majorTickUnit="8.0" max="32.0" min="8.0" showTickMarks="true" value="16.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
    </children>

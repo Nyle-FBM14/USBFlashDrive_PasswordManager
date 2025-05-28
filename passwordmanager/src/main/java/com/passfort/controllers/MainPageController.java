@@ -34,7 +34,7 @@ public class MainPageController implements Initializable {
 
     @FXML
     void computeHash(ActionEvent event) {
-
+        hashOutput.setText(Cryptography.customHash(hashInput.getText(), (byte) hashLength.getValue()));
     }
 
     @FXML

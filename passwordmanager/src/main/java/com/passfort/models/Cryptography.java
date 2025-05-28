@@ -176,20 +176,20 @@ public class Cryptography {
             byte increment = 0;
             for(int i = 0; i < hashLength; i++) {
 
-                //Makes sure that a password has at least uppercase letter, lowercase letter, number, and symbol
+                //Makes sure that a password has at least uppercase letter, lowercase letter, number, and symbol. Formula ensures positive result: ((b % i) + i) % i
                 if((i % indices) == 0) {
                     switch (increment) {
                         case 0:
-                            hashString.append(UPPERCASE[(hash[i] % UPPERCASE.length)]);
+                            hashString.append(UPPERCASE[(((hash[i] % UPPERCASE.length) + UPPERCASE.length) % UPPERCASE.length)]);
                             break;
                         case 1:
-                            hashString.append(LOWERCASE[(hash[i] % LOWERCASE.length)]);
+                            hashString.append(LOWERCASE[(((hash[i] % LOWERCASE.length) + LOWERCASE.length) % LOWERCASE.length)]);
                             break;
                         case 2:
-                            hashString.append(NUMBER[(hash[i] % NUMBER.length)]);
+                            hashString.append(NUMBER[(((hash[i] % NUMBER.length) + NUMBER.length) % NUMBER.length)]);
                             break;
                         case 3:
-                            hashString.append(SYMBOLS[(hash[i] % SYMBOLS.length)]);
+                            hashString.append(SYMBOLS[(((hash[i] % SYMBOLS.length) + SYMBOLS.length) % SYMBOLS.length)]);
                             break;
                         default:
                             break;
@@ -197,7 +197,7 @@ public class Cryptography {
                     increment++;
                     continue;
                 }
-                hashString.append(REGEX_ALL[(hash[i] % REGEX_ALL.length)]);
+                hashString.append(REGEX_ALL[(((hash[i] % REGEX_ALL.length) + REGEX_ALL.length) % REGEX_ALL.length)]);
             }
             return hashString.toString();
         } catch (NoSuchAlgorithmException e) {
