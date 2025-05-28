@@ -16,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 public class MainPageController implements Initializable {
@@ -65,16 +66,19 @@ public class MainPageController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         fillCreds();
+        //int i = 0;
         for(Credential c : credentials) {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/passfort/views/credentialCard.fxml"));
             try {
-                VBox vbox = fxmlLoader.load();
+                GridPane gridPane = fxmlLoader.load();
+                //gridPane.setId(Integer.toString(i));
                 CredentialCardController credentialCardController = fxmlLoader.getController();
                 credentialCardController.setData(c, key);
-                vboxMain.getChildren().add(vbox);
+                vboxMain.getChildren().add(gridPane);
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            //i++;
         }
     }
 }
