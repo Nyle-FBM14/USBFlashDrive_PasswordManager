@@ -8,6 +8,7 @@ import javax.crypto.SecretKey;
 
 import com.passfort.models.Credential;
 import com.passfort.models.Cryptography;
+import com.passfort.models.PasswordManager;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -48,37 +49,21 @@ public class MainPageController implements Initializable {
         System.out.println("To be implemented.");
     }
 
-    //test data
-    ArrayList<Credential> credentials = new ArrayList<>();
-    SecretKey key = Cryptography.generateKey("nyle", "pass");
-    void fillCreds() {
-        byte[] a = Cryptography.encrypt("Amazon", key, "AES");
-        byte[] b = Cryptography.encrypt("Nyle", key, "AES");
-        byte[] c = Cryptography.encrypt("password", key, "AES");
-        byte[] d = Cryptography.encrypt("nyle@fbm.com", key, "AES");
-        Credential cred = new Credential(a, b, c, d);
-
-        credentials.add(cred);
-        credentials.add(cred);
-        credentials.add(cred);
-        credentials.add(cred);
-    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        fillCreds();
-        //int i = 0;
+        PasswordManager pm = PasswordManager.getPasswordManagerInstance();
+        pm.testData();
+        ArrayList<Credential> credentials = pm.getCredentials();
         for(Credential c : credentials) {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/passfort/views/credentialCard.fxml"));
             try {
                 GridPane gridPane = fxmlLoader.load();
-                //gridPane.setId(Integer.toString(i));
                 CredentialCardController credentialCardController = fxmlLoader.getController();
-                credentialCardController.setData(c, key);
+                credentialCardController.setData(c, pm.getKey());
                 vboxMain.getChildren().add(gridPane);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            //i++;
         }
     }
 }

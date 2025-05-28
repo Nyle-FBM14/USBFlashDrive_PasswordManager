@@ -102,7 +102,7 @@ public class Cryptography {
             cipher.init(Cipher.ENCRYPT_MODE, key);
 
             try (
-                FileOutputStream fos = new FileOutputStream(new File(String.format("data/%s/credentials.sneakysneaky", user)));
+                FileOutputStream fos = new FileOutputStream(new File(String.format("data/%s/credentials.passfort", user)));
                 CipherOutputStream cos = new CipherOutputStream(fos, cipher);
                 OutputStreamWriter writer = new OutputStreamWriter(cos, StandardCharsets.UTF_8);
             )
@@ -126,7 +126,7 @@ public class Cryptography {
             cipher.init(Cipher.DECRYPT_MODE, key);
 
             try (
-                FileInputStream fis = new FileInputStream(new File(String.format("data/%s/credentials.sneakysneaky", user)));
+                FileInputStream fis = new FileInputStream(new File(String.format("data/%s/credentials.passfort", user)));
                 CipherInputStream cis = new CipherInputStream(fis, cipher);
                 //InputStreamReader isr = new InputStreamReader(cis, StandardCharsets.UTF_8);
                 //BufferedReader reader = new BufferedReader(isr);

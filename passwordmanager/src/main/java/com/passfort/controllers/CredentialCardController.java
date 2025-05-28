@@ -3,6 +3,8 @@ package com.passfort.controllers;
 import javax.crypto.SecretKey;
 
 import com.passfort.models.Credential;
+import com.passfort.models.PasswordManager;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -28,6 +30,7 @@ public class CredentialCardController {
     @FXML
     private TextField tfUsername;
 
+    private PasswordManager pm =  PasswordManager.getPasswordManagerInstance();
     private Credential credential;
     private Clipboard clipboard = Clipboard.getSystemClipboard();
     private ClipboardContent content = new ClipboardContent();
@@ -63,26 +66,26 @@ public class CredentialCardController {
         GridPane grid = (GridPane) ((Node) event.getSource()).getParent();
         VBox vbox = (VBox) grid.getParent();
         ObservableList<Node> credentials = vbox.getChildren();
-        System.out.println(grid.getId());
-        System.out.println(credentials.indexOf(grid));
-        //System.out.println(credentials.get(Integer.parseInt(grid.getId())).equals(credentials.get(Integer.parseInt(grid.getId()) + 1)));
-        System.out.println(credentials.get(0).equals(credentials.get(0)));
-        System.out.println(credentials.get(0).equals(credentials.get(2)));
-        System.out.println(credentials.get(0).equals(credentials.get(3)));
-        System.out.println(credentials.get(1).equals(credentials.get(3)));
-        System.out.println(credentials.get(2).equals(credentials.get(2)));
-        System.out.println("here");
-        System.out.println(credentials.remove(grid));
+        credentials.remove(grid);
+        pm.deleteCredential(credential);
     }
 
     @FXML
     void editCredential(MouseEvent event) {
         System.out.println("Editable");
+        if(tfService.isEditable()) {
+            System.out.println("Confirming edit.");
+            pm.editCredential(tfService.getText(), tfUsername.getText(), pfPassword.getText(), tfEmailLinked.getText(), credential);
+        }
+        tfService.setEditable(!tfService.isEditable());
+        tfUsername.setEditable(!tfUsername.isEditable());
+        pfPassword.setEditable(!pfPassword.isEditable());
+        tfEmailLinked.setEditable(!tfEmailLinked.isEditable());
     }
 
     @FXML
     void showPassword(MouseEvent event) {
-        
+        pm.seeData();
     }
 
 }
