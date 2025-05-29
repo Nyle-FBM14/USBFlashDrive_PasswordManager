@@ -67,30 +67,30 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
       </VBox>
-      <Pane onMouseClicked="#openVault" prefHeight="200.0" prefWidth="200.0" styleClass="mainPageTiles" stylesheets="@../styles.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
+      <Pane onMouseClicked="#openVault" styleClass="mainPageTiles" stylesheets="@../styles.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <children>
             <Label layoutX="14.0" layoutY="14.0" text="Vault" textFill="WHITE">
                <font>
                   <Font name="Impact" size="16.0" />
                </font>
             </Label>
-            <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="90.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="90.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../tempLogo.jpg" />
+                  <Image url="@../images/vaultButton.jpg" />
                </image>
             </ImageView>
          </children>
       </Pane>
-      <Pane onMouseClicked="#open2faMenu" prefHeight="200.0" prefWidth="200.0" styleClass="mainPageTiles" stylesheets="@../styles.css" GridPane.columnIndex="2" GridPane.rowIndex="2">
+      <Pane onMouseClicked="#open2faMenu" styleClass="mainPageTiles" stylesheets="@../styles.css" GridPane.columnIndex="2" GridPane.rowIndex="2">
          <children>
             <Label layoutX="14.0" layoutY="14.0" text="2FA" textFill="WHITE">
                <font>
                   <Font name="Impact" size="16.0" />
                </font>
             </Label>
-            <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="90.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="90.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../tempLogo.jpg" />
+                  <Image url="@../images/2FAButton.jpg" />
                </image>
             </ImageView>
          </children>
