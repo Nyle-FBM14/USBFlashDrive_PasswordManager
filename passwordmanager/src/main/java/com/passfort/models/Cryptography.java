@@ -169,16 +169,16 @@ public class Cryptography {
         final char[] REGEX_ALL = "^[a-zA-Z0-9!@#$%^&*()_\\-=+\\[\\]{}<>,.?;:'\"\\\\/|~]+$".toCharArray();
 
         StringBuilder hashString = new StringBuilder();
-        byte indices = (byte) (hashLength/4); //the places to put a uppercase, lowercase, number, and symbol
+        byte increment = (byte) (hashLength/4); //the places to put a uppercase, lowercase, number, and symbol
         try {
             MessageDigest function = MessageDigest.getInstance("SHA-256");
             byte[] hash = function.digest(plaintext.getBytes(StandardCharsets.UTF_8));
-            byte increment = 0;
+            byte index = 0;
             for(int i = 0; i < hashLength; i++) {
 
                 //Makes sure that a password has at least uppercase letter, lowercase letter, number, and symbol. Formula ensures positive result: ((b % i) + i) % i
-                if((i % indices) == 0) {
-                    switch (increment) {
+                if((i % increment) == 0) {
+                    switch (index) {
                         case 0:
                             hashString.append(UPPERCASE[(((hash[i] % UPPERCASE.length) + UPPERCASE.length) % UPPERCASE.length)]);
                             break;
@@ -194,7 +194,7 @@ public class Cryptography {
                         default:
                             break;
                     }
-                    increment++;
+                    index++;
                     continue;
                 }
                 hashString.append(REGEX_ALL[(((hash[i] % REGEX_ALL.length) + REGEX_ALL.length) % REGEX_ALL.length)]);

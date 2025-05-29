@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.crypto.SecretKey;
 
@@ -30,6 +31,7 @@ public class PasswordManager {
         return temp;
     }
 
+    //USERS
     private String getUsernameHash(String username) { //the hash will be truncated for shorter user folder names
         StringBuilder hashString = new StringBuilder();
         try {
@@ -79,11 +81,23 @@ public class PasswordManager {
         return true;
     }
 
+    //CHANGE?
     public SecretKey getKey() {
         return key;
     }
     public ArrayList<Credential> getCredentials() {
         return credentials;
+    }
+
+    //CREDENTIALS
+    public void addCredential(String service, String username, String password, String emailLinked) {
+        Credential c = new Credential(
+            Cryptography.encrypt(service, key, "AES"),
+            Cryptography.encrypt(username, key, "AES"),
+            Cryptography.encrypt(password, key, "AES"),
+            Cryptography.encrypt(emailLinked, key, "AES"));
+
+        credentials.add(c);
     }
     public void editCredential(String service, String username, String password, String emailLinked, Credential credential) {
         if(service != null)
@@ -99,6 +113,46 @@ public class PasswordManager {
     }
     public void deleteCredential(Credential c) {
         credentials.remove(c);
+    }
+
+    //UTILITY
+    public String generatePassword(int passwordLength) {
+        final char[] UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+        final char[] LOWERCASE = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+        final char[] NUMBER = "0123456789".toCharArray();
+        final char[] SYMBOLS = "!@#$%^&*()-_=+[]{}<>,.?;:'\"\\/|~`".toCharArray();  //32 chars
+        final char[] REGEX_ALL = "^[a-zA-Z0-9!@#$%^&*()_\\-=+\\[\\]{}<>,.?;:'\"\\\\/|~]+$".toCharArray();
+
+        Random r = new Random();
+        StringBuilder password = new StringBuilder();
+        byte increment = (byte) (passwordLength/4);
+        byte index = 0; //the places to put a uppercase, lowercase, number, and symbol
+
+        for(int i = 0; i < passwordLength; i++) {
+            //Makes sure that a password has at least uppercase letter, lowercase letter, number, and symbol. Formula ensures positive result: ((b % i) + i) % i
+            if((i % increment) == 0) {
+                switch (index) {
+                    case 0:
+                        password.append(UPPERCASE[r.nextInt(UPPERCASE.length)]);
+                        break;
+                    case 1:
+                        password.append(LOWERCASE[r.nextInt(LOWERCASE.length)]);
+                        break;
+                    case 2:
+                        password.append(NUMBER[r.nextInt(NUMBER.length)]);
+                        break;
+                    case 3:
+                        password.append(SYMBOLS[r.nextInt(SYMBOLS.length)]);
+                        break;
+                    default:
+                        break;
+                }
+                index++;
+                continue;
+            }
+            password.append(REGEX_ALL[r.nextInt(REGEX_ALL.length)]);
+        }
+        return password.toString();
     }
 
     public void testData() {
