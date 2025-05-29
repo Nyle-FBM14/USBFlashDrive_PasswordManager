@@ -2,7 +2,7 @@ module com.fortpass {
     requires javafx.controls;
     requires javafx.fxml;
     requires transitive javafx.graphics;
-    requires java.xml;
+    requires transitive java.xml;
 
     opens com.passfort to javafx.fxml;
     exports com.passfort;

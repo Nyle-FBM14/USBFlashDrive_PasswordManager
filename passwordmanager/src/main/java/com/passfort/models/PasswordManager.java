@@ -94,6 +94,8 @@ public class PasswordManager {
             credential.setPassword(password, key);
         if(emailLinked != null)
             credential.setEmailLinked(emailLinked, key);
+
+        Cryptography.encryptToFile(credentials, key, usernameHash);
     }
     public void deleteCredential(Credential c) {
         credentials.remove(c);

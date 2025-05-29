@@ -94,8 +94,8 @@
          </font>
       </Label>
       <TextField fx:id="hashInput" promptText="Input Text" GridPane.rowIndex="4" />
-      <TextField fx:id="hashOutput" editable="false" promptText="Hash" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-      <Button mnemonicParsing="false" onAction="#computeHash" stylesheets="@../styles.css" text="-&gt;" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <TextField fx:id="hashOutput" editable="false" promptText="Hashed Text" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+      <Button mnemonicParsing="false" onAction="#computeHash" styleClass="roundsquare-button" stylesheets="@../styles.css" text="--Hash-&gt;" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4" />
       <Slider fx:id="hashLength" blockIncrement="4.0" majorTickUnit="8.0" max="32.0" min="8.0" showTickMarks="true" value="16.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
    </children>
    <padding>

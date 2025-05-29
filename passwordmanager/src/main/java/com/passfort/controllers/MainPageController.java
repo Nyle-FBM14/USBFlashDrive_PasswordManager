@@ -4,8 +4,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import javax.crypto.SecretKey;
-
 import com.passfort.models.Credential;
 import com.passfort.models.Cryptography;
 import com.passfort.models.PasswordManager;
