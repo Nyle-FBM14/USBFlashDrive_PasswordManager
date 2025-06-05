@@ -15,6 +15,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -49,21 +50,24 @@
       </HBox>
       <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="265.0" prefWidth="385.0" spacing="5.0" styleClass="mainPageTiles" stylesheets="@../styles.css" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
          <children>
-            <Label prefHeight="25.0" text="Password Manager" textFill="WHITE">
-               <font>
-                  <Font name="Impact" size="20.0" />
-               </font>
-            </Label>
+            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="365.0">
+               <children>
+                  <Label prefHeight="25.0" text="Password Manager" textFill="WHITE">
+                     <font>
+                        <Font name="Impact" size="20.0" />
+                     </font>
+                  </Label>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Button mnemonicParsing="false" onAction="#newCredential" prefHeight="25.0" prefWidth="25.0" styleClass="roundsquare-button" stylesheets="@../styles.css" text="+" textFill="WHITE">
+                     <font>
+                        <Font name="Impact" size="11.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
             <ScrollPane id="scrollPaneMainPage" fitToWidth="true" minHeight="215.0" minWidth="-Infinity" prefWidth="365.0" stylesheets="@../styles.css">
                <content>
-                  <VBox fx:id="vboxMain" minHeight="210.0" minWidth="-Infinity" prefWidth="360.0">
-                     <children>
-                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#newCredential" styleClass="roundsquare-button" stylesheets="@../styles.css" text="+" textFill="WHITE">
-                           <font>
-                              <Font name="Impact" size="24.0" />
-                           </font>
-                        </Button>
-                     </children></VBox>
+                  <VBox fx:id="vboxMain" minHeight="210.0" minWidth="-Infinity" prefWidth="360.0" />
                </content></ScrollPane>
          </children>
          <padding>
