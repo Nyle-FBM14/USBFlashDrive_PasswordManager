@@ -60,38 +60,74 @@ public class PasswordManager {
         return dataDir.exists();
 
     }
-    public boolean login(String username, String password) {
-        String hash = getUsernameHash(username);
-
-        if(!userExists(hash))
-            return false;
-        
-        try (BufferedReader reader = new BufferedReader(new FileReader("data/" + hash + "/password.passfort"))) {
-            if(reader.readLine().equals(Cryptography.hash256(password))) {
-                usernameHash = hash;
-                key = Cryptography.generateKey(username, password);
-                //decrypting and parsing data
-                credentials = Cryptography.decryptFromFile(key, usernameHash);
-                return true;
-            }
+    public boolean verifyPassword(String password) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(String.format("data/%s/password.passfort", usernameHash)))) {
+            return reader.readLine().equals(Cryptography.hash256(password));
         } catch (IOException e) {
             e.printStackTrace();
         }
         return false;
     }
-    public boolean createAccount(String username, String password) {
-        String hash = getUsernameHash(username);
+    public boolean changePassword(String oldPassword, String newPassword) {
+        if(verifyPassword(oldPassword)) {
+            try (FileWriter filewriter = new FileWriter(String.format("data/%s/password.passfort", usernameHash))) {
+                filewriter.write(Cryptography.hash256(newPassword));
+                return true;
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+        return false;
+    }
+    public boolean deleteAccount(String password) {
+        if(verifyPassword(password)) {
+            File dataDir = new File("data/" + usernameHash);
+            File credentialsFile = new File(String.format("data/%s/credentials.passfort", usernameHash));
+            File passwordFile = new File(String.format("data/%s/password.passfort", usernameHash));
+            
+            if(credentialsFile.exists()) {
+                credentialsFile.delete();
+            }
+            if(passwordFile.exists()) {
+                passwordFile.delete();
+            }
+            return dataDir.delete();
+        }
+        return false;
+    }
+    //USER SESSION
+    public boolean login(String username, String password) {
+        usernameHash = getUsernameHash(username);
 
-        if(userExists(hash))
+        if(!userExists(usernameHash)) {
+            usernameHash = null;
             return false;
+        }
 
-        usernameHash = hash;
+        if(verifyPassword(password)) {
+            key = Cryptography.generateKey(username, password);
+            //decrypting and parsing data
+            credentials = Cryptography.decryptFromFile(key, usernameHash);
+            return true;
+        }
+        usernameHash = null;
+        return false;
+    }
+    public boolean createAccount(String username, String password) {
+        usernameHash = getUsernameHash(username);
+
+        if(userExists(usernameHash)) {
+            usernameHash = null;
+            return false;
+        }
+            
         key = Cryptography.generateKey(username, password);
 
         File dataDir = new File("data/" + usernameHash);
         dataDir.mkdir();
 
-        try (FileWriter filewriter = new FileWriter("data/" + usernameHash + "/password.passfort")) {
+        try (FileWriter filewriter = new FileWriter(String.format("data/%s/password.passfort", usernameHash))) {
             filewriter.write(Cryptography.hash256(password));
         } catch (IOException e) {
             e.printStackTrace();
