@@ -77,7 +77,7 @@ public class MainPageController implements Initializable {
 
     @FXML
     void goAccountPage(ActionEvent event) {
-        System.out.println("Account Page");
+        App.setRoot("accountPage");
     }
 
     @FXML
