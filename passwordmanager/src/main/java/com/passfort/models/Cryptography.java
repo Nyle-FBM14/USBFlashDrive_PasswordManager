@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
@@ -97,16 +98,24 @@ public class Cryptography {
     }
 
     public static void encryptToFile(ArrayList<Credential> credentials, SecretKey key, String user) {
+        File credentialsFile = new File(String.format("data/%s/credentials.passfort", user));
+        if(credentials.isEmpty()) {
+            credentialsFile.delete();
+            return;
+        }
         try {
             Cipher cipher = Cipher.getInstance("AES");
             cipher.init(Cipher.ENCRYPT_MODE, key);
 
             try (
-                FileOutputStream fos = new FileOutputStream(new File(String.format("data/%s/credentials.passfort", user)));
+                FileOutputStream fos = new FileOutputStream(credentialsFile);
                 CipherOutputStream cos = new CipherOutputStream(fos, cipher);
                 OutputStreamWriter writer = new OutputStreamWriter(cos, StandardCharsets.UTF_8);
             )
             {
+                if(credentials.isEmpty())
+                    return;
+
                 writer.write("<Credentials>");
                 for(Credential c : credentials) {
                     writer.write(c.getXML());
@@ -121,12 +130,23 @@ public class Cryptography {
 
     public static ArrayList<Credential> decryptFromFile(SecretKey key, String user) {
         ArrayList<Credential> credentials = new ArrayList<Credential>();
+
+        File credentialsFile = new File(String.format("data/%s/credentials.passfort", user));
+        if(!credentialsFile.exists()) {
+            try {
+                credentialsFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return credentials;
+        }
+        
         try {
             Cipher cipher = Cipher.getInstance("AES");
             cipher.init(Cipher.DECRYPT_MODE, key);
 
             try (
-                FileInputStream fis = new FileInputStream(new File(String.format("data/%s/credentials.passfort", user)));
+                FileInputStream fis = new FileInputStream(credentialsFile);
                 CipherInputStream cis = new CipherInputStream(fis, cipher);
                 //InputStreamReader isr = new InputStreamReader(cis, StandardCharsets.UTF_8);
                 //BufferedReader reader = new BufferedReader(isr);
