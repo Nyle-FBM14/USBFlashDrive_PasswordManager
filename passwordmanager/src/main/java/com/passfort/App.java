@@ -21,7 +21,7 @@ public class App extends Application {
         stage.setY(0);
         stage.setMinHeight(400);
         stage.setMinWidth(700);
-        stage.setMaximized(true);
+        //stage.setMaximized(true);
 
         stage.setTitle("PassFort Password Manager");
 

@@ -14,12 +14,15 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 public class CredentialCardController {
 
     @FXML
     private PasswordField pfPassword;
+    @FXML
+    private TextField tfPassword;
 
     @FXML
     private TextField tfEmailLinked;
@@ -34,11 +37,13 @@ public class CredentialCardController {
     private Credential credential;
     private Clipboard clipboard = Clipboard.getSystemClipboard();
     private ClipboardContent content = new ClipboardContent();
+    private boolean showingPassword = false;
 
     public void setData(Credential c, SecretKey key) {
         tfService.setText(c.getService(key));
         tfUsername.setText(c.getUsername(key));
         pfPassword.setText(c.getPassword(key));
+        tfPassword.setText(pfPassword.getText());
         tfEmailLinked.setText(c.getEmailLinked(key));
         this.credential = c;
     }
@@ -75,17 +80,34 @@ public class CredentialCardController {
         System.out.println("Editable");
         if(tfService.isEditable()) {
             System.out.println("Confirming edit.");
+            if(showingPassword) {
+                pfPassword.setText(tfPassword.getText());
+                pfPassword.toFront();
+                showingPassword = false;
+            }
+            else {
+                tfPassword.setText(pfPassword.getText());
+            }
             pm.editCredential(tfService.getText(), tfUsername.getText(), pfPassword.getText(), tfEmailLinked.getText(), credential);
         }
         tfService.setEditable(!tfService.isEditable());
         tfUsername.setEditable(!tfUsername.isEditable());
         pfPassword.setEditable(!pfPassword.isEditable());
+        tfPassword.setEditable(!tfPassword.isEditable());
         tfEmailLinked.setEditable(!tfEmailLinked.isEditable());
     }
 
     @FXML
     void showPassword(MouseEvent event) {
-        pm.seeData();
+        //pm.seeData();
+        if(showingPassword) {
+            pfPassword.setText(tfPassword.getText());
+            pfPassword.toFront();
+        }
+        else {
+            tfPassword.setText(pfPassword.getText());
+            tfPassword.toFront();
+        }
+        showingPassword = !showingPassword;
     }
-
 }
