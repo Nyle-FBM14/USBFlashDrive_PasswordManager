@@ -10,7 +10,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
 
 public class LoginController {
@@ -39,16 +38,6 @@ public class LoginController {
         labelError.setVisible(true);
         pt.play();
     }
-
-    private void login() {
-        if(pm.login(tfUsername.getText(), pfPassword.getText())) {
-            System.out.println("Login successful.");
-            App.setRoot("mainPage");
-        }
-        else {
-            showErrorMessage("User does not exist.");
-        }
-    }
     
     @FXML
     void createAccount(ActionEvent event) {
@@ -63,14 +52,13 @@ public class LoginController {
     }
 
     @FXML
-    void enterKey(KeyEvent event) {
-        //if(event.getCode() == KeyCode.ENTER)
-        //    login();
-        App.setRoot("mainPage");
-    }
-
-    @FXML
-    void loginClick(ActionEvent event) {
-        login();
+    void login(ActionEvent event) {
+        if(pm.login(tfUsername.getText(), pfPassword.getText())) {
+            System.out.println("Login successful.");
+            App.setRoot("mainPage");
+        }
+        else {
+            showErrorMessage("User does not exist.");
+        }
     }
 }

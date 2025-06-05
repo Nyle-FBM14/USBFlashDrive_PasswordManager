@@ -76,6 +76,18 @@ public class MainPageController implements Initializable {
     }
 
     @FXML
+    void goAccountPage(ActionEvent event) {
+        System.out.println("Account Page");
+    }
+
+    @FXML
+    void logout(ActionEvent event) {
+        System.out.println("Logout");
+        pm.logout();
+        App.setRoot("loginPage");
+    }
+
+    @FXML
     void computeHash(ActionEvent event) {
         hashOutput.setText(Cryptography.customHash(hashInput.getText(), (byte) hashLength.getValue()));
     }
@@ -92,7 +104,6 @@ public class MainPageController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        pm.testData();
         populateVbox();
     }
 }

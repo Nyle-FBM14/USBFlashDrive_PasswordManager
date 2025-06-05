@@ -1,6 +1,10 @@
 package com.passfort.models;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -62,12 +66,18 @@ public class PasswordManager {
         if(!userExists(hash))
             return false;
         
-        usernameHash = hash;
-        key = Cryptography.generateKey(username, password);
-        //decrypting and parsing data
-        credentials = Cryptography.decryptFromFile(key, username);
-
-        return true;
+        try (BufferedReader reader = new BufferedReader(new FileReader("data/" + hash + "/password.passfort"))) {
+            if(reader.readLine().equals(Cryptography.hash256(password))) {
+                usernameHash = hash;
+                key = Cryptography.generateKey(username, password);
+                //decrypting and parsing data
+                credentials = Cryptography.decryptFromFile(key, usernameHash);
+                return true;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
     public boolean createAccount(String username, String password) {
         String hash = getUsernameHash(username);
@@ -78,7 +88,22 @@ public class PasswordManager {
         usernameHash = hash;
         key = Cryptography.generateKey(username, password);
 
+        File dataDir = new File("data/" + usernameHash);
+        dataDir.mkdir();
+
+        try (FileWriter filewriter = new FileWriter("data/" + usernameHash + "/password.passfort")) {
+            filewriter.write(Cryptography.hash256(password));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
         return true;
+    }
+    public void logout() {
+        Cryptography.encryptToFile(credentials, key, usernameHash);
+        usernameHash = null;
+        key = null;
+        credentials = null;
     }
 
     //CHANGE?
@@ -98,6 +123,7 @@ public class PasswordManager {
             Cryptography.encrypt(emailLinked, key, "AES"));
 
         credentials.add(c);
+        Cryptography.encryptToFile(credentials, key, usernameHash);
     }
     public void editCredential(String service, String username, String password, String emailLinked, Credential credential) {
         if(service != null)
@@ -113,6 +139,7 @@ public class PasswordManager {
     }
     public void deleteCredential(Credential c) {
         credentials.remove(c);
+        Cryptography.encryptToFile(credentials, key, usernameHash);
     }
 
     //UTILITY

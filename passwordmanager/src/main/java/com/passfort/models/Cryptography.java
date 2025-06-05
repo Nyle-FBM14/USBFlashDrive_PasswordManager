@@ -161,6 +161,21 @@ public class Cryptography {
         return null;
     }
 
+    public static String hash256(String plaintext) {
+        try {
+            StringBuilder hashString = new StringBuilder();
+            MessageDigest function = MessageDigest.getInstance("SHA-256");
+            byte[] hash = function.digest(plaintext.getBytes(StandardCharsets.UTF_8));
+
+            for(byte b : hash) {
+                hashString.append(String.format("%02X", b));
+            }
+            return hashString.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     public static String customHash(String plaintext, byte hashLength) {
         final char[] UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
         final char[] LOWERCASE = "abcdefghijklmnopqrstuvwxyz".toCharArray();

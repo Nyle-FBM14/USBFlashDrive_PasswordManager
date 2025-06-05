@@ -83,3 +83,28 @@
     border-color: white;
     border-radius: 20px;
 }
+
+.menu-button {
+    -fx-background-color: #426bb3;
+    -fx-background-radius : 100%;
+    -fx-border-radius: 100%;
+
+    background-color: #426bb3;
+    border-radius: 100%;
+}
+.menu-button .arrow-button, .menu-button .arrow {
+    -fx-padding: 0;
+    padding: 0;
+}
+.context-menu {
+    -fx-background-color: #426bb3;
+    background-color: #426bb3;
+}
+.menu-item {
+    -fx-font-family: "Impact";
+    -fx-font-size: 16px;
+    /*idk how to change the text colour :(
+    -fx-text-fill, -fx-text, -fx-color do not work*/
+    font-family: "Impact";
+    font-size: 16px;
+}
