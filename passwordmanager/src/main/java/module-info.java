@@ -1,4 +1,4 @@
-module com.fortpass {
+module com.passfort {
     requires javafx.controls;
     requires javafx.fxml;
     requires transitive javafx.graphics;
