@@ -6,3 +6,6 @@ To run and use the app yourself, download the zip folder and extract it into you
 
 Psalm 91:2 (ESV) "I will say to the Lord, 'My refuge and my fortress, my God, in whom I trust.'"
 The Holy Bible, English Standard Version. ESV® Text Edition: 2016. Copyright © 2001 by Crossway Bibles, a publishing ministry of Good News Publishers.
+
+Demo Video
+[Watch the video](https://youtu.be/hnp3TyZ3NMA)
